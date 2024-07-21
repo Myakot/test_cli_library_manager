@@ -1,13 +1,24 @@
 import json
 import time
 import random
+from typing import List, Dict
 
 
-def add_book(title: str, author: str, year: int) -> None:
-    book_id = generate_unique_id()
-    status = "в наличии"
+def add_book(title: str, author: str, year: str) -> None:
+    valid_year = False
+    while not valid_year:
+        if not year.isdigit() or int(year) > 2024:
+            print("Ошибка: Год должен быть числом и не может быть больше 2024. Пожалуйста, введите корректный год.")
+            year = input("Введите год: ")
+        else:
+            valid_year = True
 
-    new_book = {
+    year = int(year)  # Преобразовываем год в число только после всех проверок
+
+    book_id: str = generate_unique_id()
+    status: str = "в наличии"
+
+    new_book: Dict[str, str] = {
         "id": book_id,
         "title": title,
         "author": author,
@@ -15,7 +26,7 @@ def add_book(title: str, author: str, year: int) -> None:
         "status": status
     }
 
-    books_data = load_books_data()
+    books_data: List[Dict[str, str]] = load_books_data()
     books_data.append(new_book)
 
     save_books_data(books_data)
