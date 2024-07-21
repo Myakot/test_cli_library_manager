@@ -4,19 +4,25 @@ import random
 from typing import List, Dict
 
 
-def add_book(title: str, author: str, year: str) -> None:
+def add_book(title: str, author: str, year: str, status: str = "в наличии") -> None:
     valid_year = False
     while not valid_year:
         if not year.isdigit() or int(year) > 2024:
-            print("Ошибка: Год должен быть числом и не может быть больше 2024. Пожалуйста, введите корректный год.")
+            print("Ошибка: Год должен быть числом и не может быть больше 2024. Пожалуйста, "
+                  "введите корректный год.")
             year = input("Введите год: ")
         else:
             valid_year = True
 
     year = int(year)  # Преобразовываем год в число только после всех проверок
 
+    # Проверяем, что статус соответствует одному из двух допустимых значений
+    if status not in ["в наличии", "выдана"]:
+        print("Ошибка: Статус должен быть 'в наличии' или 'выдана'. Установлено значение "
+              "по умолчанию 'в наличии'.")
+        status = "в наличии"
+
     book_id: str = generate_unique_id()
-    status: str = "в наличии"
 
     new_book: Dict[str, str] = {
         "id": book_id,
@@ -57,7 +63,8 @@ def search_book(query: str) -> None:
         print("Найденные книги:")
         for found_book in found_books:
             print(
-                f"ID: {found_book['id']}, Название: {found_book['title']}, Автор: {found_book['author']}, Год: {found_book['year']}, Статус: {found_book['status']}")
+                f"ID: {found_book['id']}, Название: {found_book['title']},"
+                f"Автор: {found_book['author']}, Год: {found_book['year']}, Статус: {found_book['status']}")
     else:
         print("Книги по запросу не найдены.")
 
@@ -69,12 +76,17 @@ def display_all_books() -> None:
         print("Список всех книг:")
         for book in books_data:
             print(
-                f"ID: {book['id']}, Название: {book['title']}, Автор: {book['author']}, Год: {book['year']}, Статус: {book['status']}")
+                f"ID: {book['id']}, Название: {book['title']},"
+                f"Автор: {book['author']}, Год: {book['year']}, Статус: {book['status']}")
     else:
         print("Нет книг для отображения.")
 
 
 def change_book_status(book_id: str, new_status: str) -> None:
+    if new_status not in ["в наличии", "выдана"]:
+        print("Ошибка: Статус должен быть 'в наличии' или 'выдана'.")
+        return
+
     books_data = load_books_data()
 
     for book in books_data:
