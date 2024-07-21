@@ -3,7 +3,7 @@ import time
 import random
 
 
-def add_book(title, author, year):
+def add_book(title: str, author: str, year: int) -> None:
     book_id = generate_unique_id()
     status = "в наличии"
 
@@ -22,7 +22,7 @@ def add_book(title, author, year):
     print("Книга успешно добавлена.")
 
 
-def delete_book(book_id):
+def delete_book(book_id: str) -> None:
     books_data = load_books_data()
     updated_books_data = [book for book in books_data if book['id'] != book_id]
 
@@ -33,7 +33,7 @@ def delete_book(book_id):
         print(f"Книга с ID {book_id} не найдена.")
 
 
-def search_book(query):
+def search_book(query: str) -> None:
     books_data = load_books_data()
 
     found_books = []
@@ -51,7 +51,7 @@ def search_book(query):
         print("Книги по запросу не найдены.")
 
 
-def display_all_books():
+def display_all_books() -> None:
     books_data = load_books_data()
 
     if books_data:
@@ -63,7 +63,7 @@ def display_all_books():
         print("Нет книг для отображения.")
 
 
-def change_book_status(book_id, new_status):
+def change_book_status(book_id: str, new_status: str) -> None:
     books_data = load_books_data()
 
     for book in books_data:
@@ -76,7 +76,7 @@ def change_book_status(book_id, new_status):
     print(f"Книга с ID {book_id} не найдена.")
 
 
-def generate_unique_id():
+def generate_unique_id() -> str:
     timestamp = int(time.time() * 1000)  # текущее время в миллисекундах
     random_number = random.randint(0, 1000)  # случайное число от 0 до 1000
     unique_id = f"{timestamp}-{random_number}"
@@ -84,7 +84,7 @@ def generate_unique_id():
     return unique_id
 
 
-def load_books_data():
+def load_books_data() -> list:
     try:
         with open('books_data.json', 'r') as file:
             data = file.read()
@@ -98,6 +98,6 @@ def load_books_data():
         return initial_data
 
 
-def save_books_data(data):
+def save_books_data(data: list) -> None:
     with open('books_data.json', 'w') as file:
         json.dump(data, file, indent=4)

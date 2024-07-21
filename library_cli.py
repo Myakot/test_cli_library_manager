@@ -2,7 +2,7 @@ import argparse
 from main import add_book, delete_book, search_book, display_all_books, change_book_status
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Library Management CLI")
     parser.add_argument("--add", nargs=3, help="Add a new book: title author year")
     parser.add_argument("--delete", type=str, help="Delete a book by ID")
