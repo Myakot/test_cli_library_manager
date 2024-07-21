@@ -36,3 +36,8 @@ python library_cli.py
 ## Зависимости
 
 - Python 3.6+
+
+## Причины
+
+Проект был разработан в соответствие с требованиями в качестве тестового задания для трудоустройства:
+https://docs.google.com/document/d/19n-f8cVZ6aFdUOACRMINloZNeQUr9TS8d6qru5DgXk0
